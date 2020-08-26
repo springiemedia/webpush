@@ -46,8 +46,10 @@ class WebPushChannel
         }
 
         /** @var \NotificationChannels\WebPush\WebPushMessage $message */
-        $message = $notification->toWebPush($notifiable, $notification);
-        $payload = json_encode($message->toArray());
+        //$message = $notification->toWebPush($notifiable, $notification);
+        // GG: Wrap payload in 'notification'.
+        $payload = json_encode(['notification' => $notification->toWebPush($notifiable, $notification)->toArray()]);
+        //$payload = json_encode($message->toArray());
         $options = $message->getOptions();
 
         /** @var \NotificationChannels\WebPush\PushSubscription $subscription */
